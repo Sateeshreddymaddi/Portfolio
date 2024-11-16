@@ -24,6 +24,11 @@ body {
   line-height: 1.6;
 }
 
+html,body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
 section {
   min-height: 100vh;
   padding: 60px 20px;
@@ -88,8 +93,7 @@ header{
 }
 
 .nav-container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -108,7 +112,16 @@ header{
 .nav-links {
   list-style: none;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--secondary-color);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in, padding 0.5s ease-out;
 }
 
 .nav-links li {
@@ -124,7 +137,7 @@ header{
 }
 
 .navbar a:hover,
-.navbar a.active{
+.navbar a.active {
   color: orangered;
   transition: 0.5s;
 }
@@ -133,23 +146,41 @@ header{
   display: none;
 }
 
-@media (max-width: 670px) {
+#toggle-menu:checked + .hamburger + .nav-links {
+  max-height: 500px;
+  padding: 10px 0;
+  display: flex;
+}
+
+.hamburger {
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.5em;
+  padding-right: 20px;
+}
+
+@media (max-width: 768px) {
   .nav-links {
-    display: none;
+    display: flex;
     flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     background-color: var(--secondary-color);
-    padding: 10px 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
   }
 
   #toggle-menu:checked + .hamburger + .nav-links {
-    display: flex;
+    max-height: 500px; /* Adjust this based on your content height */
+    padding: 10px 0;
   }
 
   .hamburger {
+    display: block;
     cursor: pointer;
     color: #fff;
     font-size: 1.5em;
@@ -161,7 +192,7 @@ header{
   }
 }
 
-@media (min-width: 670px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .nav-links {
     justify-content: center;
   }
@@ -191,30 +222,35 @@ header{
 }
 
 .home-content {
-  opacity: 0; /* Start invisible */
-  transform: translateY(20px); /* Start slightly below */
-  animation: reveal 2s forwards; /* Play the animation on load */
+  opacity: 0;
+  max-width: 100%;
+  margin: 0 auto;
+  transform: translateY(20px);
+  animation: reveal 2s forwards;
 }
 
 @keyframes reveal {
   from {
-    opacity: 0; /* Start invisible */
-    transform: translateY(20px); /* Start slightly below */
+      opacity: 0; /* Start invisible */
+      transform: translateY(20px);
   }
   to {
-    opacity: 1; /* Fully visible */
-    transform: translateY(0); /* Move to original position */
+      opacity: 1;
+      transform: translateY(0);
   }
 }
 
 .home h1 {
-  font-size: 3rem;
+  font-size: 3rem; 
+  line-height: 1.2;
+  text-align: center;
+  word-wrap: break-word; 
 }
 
 .home h1 span {
-  color: var(--primary-color);
+  color: var(--primary-color); 
+  font-weight: bold;
 }
-
 .home p {
   font-size: 1.5rem;
   color: var(--text-color-light);
@@ -234,7 +270,23 @@ header{
 .btn:hover {
   background: #00796b;
 }
+@media (max-width: 400px) {
+  .home {
+    padding: 20px; /* Reduce padding for smaller screens */
+  }
 
+  .home h1 {
+    font-size: 2rem; /* Adjust font size */
+  }
+
+  .home p {
+    font-size: 1.2rem; /* Reduce font size */
+  }
+
+  .btn {
+    padding: 0.6rem 1.5rem; /* Smaller button padding */
+  }
+}
 
 /* Section Titles */
 section h2 {
@@ -257,27 +309,29 @@ section h2 {
   text-align: center;
 }
 
-.content{
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+.container {
+  max-width: 1200px;
   margin: auto;
-  padding-top: 60px;
-  width: 90%;
+  padding: 0 20px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px; 
 }
 
 .about-content {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.img-content{
-  padding-top: 20px;
-  font-size: 25px;
-  font-weight: bolder;
-  color: #000;
+  flex: 1;
+  text-align: center;
 }
 
 .profile-pic {
@@ -288,8 +342,68 @@ section h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.details{
-  font-size: 20px;
+.img-content {
+  margin-top: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.details {
+  flex: 2;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+  }
+
+  .details {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .img-content {
+    font-size: 1.6rem;
+  }
+
+  .details {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .img-content {
+    font-size: 1.4rem;
+  }
+
+  .details {
+    font-size: 1rem;
+  }
 }
 
 /* Education Section Styling */
@@ -341,6 +455,22 @@ section h2 {
   }
 }
 
+@media (max-width: 400px) {
+  .education-grid {
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+  }
+  .education-card {
+    padding: 1rem; 
+  }
+  .education-card h3 {
+    font-size: 1rem; 
+  }
+  .education-card p {
+    font-size: 0.9rem; 
+  }
+}
+
 /* Skills Section */
 .skills {
   display: flex;
@@ -353,7 +483,7 @@ section h2 {
 
 .skills h2 {
   color: #fff;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .box {
@@ -399,9 +529,9 @@ section h2 {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 670px) {
+@media (min-width: 768px) {
   .skills h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 4rem;
   }
 
   .box {
@@ -410,7 +540,7 @@ section h2 {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .skills h2 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
@@ -456,6 +586,22 @@ section h2 {
   color: black;
 }
 
+@media (max-width: 400px) {
+  .project-grid {
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+  }
+  .project-card {
+    padding: 1rem; 
+  }
+  .project-card h3 {
+    font-size: 1rem; 
+  }
+  .project-card p {
+    font-size: 0.9rem; 
+  }
+}
+
 /* Contact Section */
 .contact {
   padding: 3rem 0;
@@ -490,19 +636,6 @@ form button {
 
 form button:hover {
   background: #00796b;
-}
-
-/* Section Padding */
-.section {
-  padding: 60px 0;
-}
-
-.about,
-.skills,
-.achievements,
-.projects,
-.contact {
-  padding: 100px 0;
 }
 
 /* Footer Styling */
@@ -576,3 +709,4 @@ form button:hover {
   font-size: 18px;
   color: white;
 }
+
