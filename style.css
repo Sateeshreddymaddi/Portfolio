@@ -89,10 +89,11 @@ header{
   background-color: var(--secondary-color);
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease-out, height 0.3s ease-out;
+  transition: background-color 0.5s ease-out, height 0.5s ease-out;
 }
 
 .nav-container {
+  width: 90%;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -112,16 +113,7 @@ header{
 .nav-links {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: var(--secondary-color);
-  padding: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-in, padding 0.5s ease-out;
+  align-items: center;
 }
 
 .nav-links li {
@@ -133,11 +125,11 @@ header{
   text-decoration: none;
   font-size: 1em;
   padding: 5px 10px;
-  transition: background-color 0.3s ease-out;
+  transition: background-color 0.5s ease-out;
 }
 
 .navbar a:hover,
-.navbar a.active {
+.navbar a.active{
   color: orangered;
   transition: 0.5s;
 }
@@ -146,41 +138,23 @@ header{
   display: none;
 }
 
-#toggle-menu:checked + .hamburger + .nav-links {
-  max-height: 500px;
-  padding: 10px 0;
-  display: flex;
-}
-
-.hamburger {
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.5em;
-  padding-right: 20px;
-}
-
 @media (max-width: 768px) {
   .nav-links {
-    display: flex;
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     background-color: var(--secondary-color);
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-  }
-
-  #toggle-menu:checked + .hamburger + .nav-links {
-    max-height: 500px; /* Adjust this based on your content height */
     padding: 10px 0;
   }
 
+  #toggle-menu:checked + .hamburger + .nav-links {
+    display: flex;
+  }
+
   .hamburger {
-    display: block;
     cursor: pointer;
     color: #fff;
     font-size: 1.5em;
@@ -195,6 +169,7 @@ header{
 @media (min-width: 768px) and (max-width: 1024px) {
   .nav-links {
     justify-content: center;
+    align-self: start;
   }
 
   .nav-links li {
